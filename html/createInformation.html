@@ -109,14 +109,15 @@
         uploadDto.blog = $('#blog').val();
         uploadDto.github = $('#github').val();
         uploadDto.content = $('#content').val();
-        //uploadDto.password = $('#password').val();
+        uploadDto.password = $('#password').val();
 
         if (
           !uploadDto.mbti ||
           !uploadDto.name ||
           !uploadDto.blog ||
           !uploadDto.github ||
-          !uploadDto.content
+          !uploadDto.content ||
+          !uploadDto.password
         ) {
           alert('모든칸을 작성해 주세요!');
           return;
@@ -138,8 +139,8 @@
             await addDoc(collection(db, 'information'), uploadDto).then(
               (res) => {
                 alert('저장 되었습니다.');
-                $();
-                $('#createModal').modal('hide');
+
+                window.location.reload();
               }
             );
           })
@@ -154,6 +155,10 @@
       #content {
         height: 300px;
         resize: none;
+      }
+      #eye {
+        position: absolute;
+        cursor: pointer;
       }
     </style>
   </head>
@@ -245,6 +250,17 @@
                     resize="none"
                   ></textarea>
                   <label for="floatingInput">강점</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="password"
+                    type="password"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="password!@"
+                  />
+
+                  <label for="floatingInput">비밀번호</label>
                 </div>
               </div>
             </div>
