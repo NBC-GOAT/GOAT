@@ -30,13 +30,13 @@
     // Firebase 구성 정보 설정
     // For Firebase JS SDK v7.20.0 and later, measurementId is optional
     const firebaseConfig = {
-      apiKey: 'AIzaSyAqjb8uXk3rN-Ao6-zzC7fbeW6zuCo3vaU',
-      authDomain: 'sparta-1a0bd.firebaseapp.com',
-      projectId: 'sparta-1a0bd',
-      storageBucket: 'sparta-1a0bd.appspot.com',
-      messagingSenderId: '117739619217',
-      appId: '1:117739619217:web:13a6198d44aad16def5030',
-      measurementId: 'G-239WZM18HP',
+      apiKey: "AIzaSyA_sPuNP8Ji2TUp1G6JG36XOvMl5-H88HA",
+      authDomain: "sparta-e1d4e.firebaseapp.com",
+      projectId: "sparta-e1d4e",
+      storageBucket: "sparta-e1d4e.appspot.com",
+      messagingSenderId: "355788440214",
+      appId: "1:355788440214:web:dfe180d6313fcf8c5bb8b7",
+      measurementId: "G-LRHVEW57NC"
     };
 
     // Firebase 인스턴스 초기화
@@ -180,10 +180,13 @@
       $('#card').append(temp_html);
     });
 
-
+    
     $("#editbtn").click(async function () {
       console.log(this.value);
     })
+
+
+
   </script>
 
   <style>
@@ -203,6 +206,12 @@
   <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#createModal">
     합류하기
   </button>
+  <div class="mycards">
+    <div id="card" class="row row-cols-1 row-cols-md-4 g-4">
+
+    </div>
+  </div>
+
   <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -312,6 +321,7 @@
       </div>
     </div>
   </div>
+
 </body>
 
 </html>
