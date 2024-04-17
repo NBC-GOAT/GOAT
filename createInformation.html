@@ -85,7 +85,7 @@
       //이미지 미리보기
       $('#imageInput').change(function () {
         $('#preview').remove();
-        $('#imagebbod').append(
+        $('#image-body').append(
           `<img id="preview" class="img-thumbnail" width="330px" />`
         );
 
@@ -101,6 +101,7 @@
         }
         $('#preview').attr('display');
       });
+
       // 정보 업로드
       $('#send').click(async function () {
         uploadDto.mbti = $('#mbti').val();
@@ -148,91 +149,114 @@
     </script>
 
     <style>
-      body {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin: 10rem auto 10rem auto;
-        justify-content: center;
-        width: 30rem;
-        border: 1px solid grey;
-        border-radius: 10px;
-      }
-      .dark {
-        background-color: black;
-        color: white;
-      }
-      #imagebox {
-        width: 100%;
+      #content {
+        height: 300px;
       }
     </style>
   </head>
   <body type="module">
-    <header>
-      <h1 class="d-flex justify-content-center mt-3">GOAT에 합류하기!</h1>
-    </header>
-    <div class="mt-3 p-3">
-      <div class="mypostingbox" id="postingbox">
-        <div class="input-group mb-2" id="imagebox">
-          <div>
-            <input type="file" class="form-control mb-3" id="imageInput" />
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      합류하기
+    </button>
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">G O A T</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
           </div>
-        </div>
-        <div id="imagebbod"></div>
-        <div class="form-floating mb-3">
-          <input
-            id="name"
-            type="text"
-            class="form-control"
-            id="floatingInput"
-            placeholder="이름"
-          />
-          <label for="floatingInput">이름</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input
-            id="mbti"
-            type="text"
-            class="form-control"
-            id="floatingInput"
-            placeholder="ISTP"
-          />
-          <label for="floatingInput">MBTI</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input
-            id="blog"
-            type="text"
-            class="form-control"
-            id="floatingInput"
-            placeholder="example.com"
-          />
-          <label for="floatingInput">블로그</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input
-            id="github"
-            type="text"
-            class="form-control"
-            id="floatingInput"
-            placeholder="github.com/ka"
-          />
-          <label for="floatingInput">깃허브</label>
-        </div>
-        <div class="form-floating mb-3">
-          <input
-            id="content"
-            type="text"
-            class="form-control"
-            id="floatingInput"
-            placeholder="강점!"
-          />
-          <label for="floatingInput">강점</label>
-        </div>
-
-        <div class="d-flex justify-content-between mb-3">
-          <button class="btn btn-danger mt-3" id="send">등록하기</button>
-          <button class="btn btn-danger mt-3">취소하기</button>
+          <div class="modal-body">
+            <div class="mt-3 p-3">
+              <div class="mypostingbox" id="postingbox">
+                <div class="input-group mb-2" id="imagebox">
+                  <input
+                    type="file"
+                    class="form-control mb-3"
+                    id="imageInput"
+                  />
+                </div>
+                <div id="image-body"></div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="name"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="이름"
+                  />
+                  <label for="floatingInput">이름</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="mbti"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="ISTP"
+                  />
+                  <label for="floatingInput">MBTI</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="blog"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="example.com"
+                  />
+                  <label for="floatingInput">블로그</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="github"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="github.com/ka"
+                  />
+                  <label for="floatingInput">깃허브</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="content"
+                    type="textarea"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="강점!"
+                  />
+                  <label for="floatingInput">강점</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+            <button type="button" class="btn btn-primary" id="send">
+              등록하기
+            </button>
+          </div>
         </div>
       </div>
     </div>
