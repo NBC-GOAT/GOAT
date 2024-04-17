@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GOAT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap');
+
+    * {
+        font-family: "Sunflower", sans-serif;
+        font-weight: 300;
+        font-style: normal;
+    }
+    body{
+        margin:0 auto
+    }
+    .title {
+        text-align: center;
+    }
+
+    #moreinfo {
+        height: 320px;
+        margin: 20px;
+        
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .image {
+        
+
+        padding: 20px 50px 20px 20px;
+        border-radius: 5px;
+        margin: 5px 0 0 5px;
+    }
+
+    .image img {
+        float: right;
+        width: 200px;
+    }
+
+    .info-detail {
+        height: 320px;
+        width: 280px;
+        
+        padding-left: 20px;
+    }
+
+    .shorts {
+        height: 200px;
+        padding-top: 40px;
+    }
+
+    .profile {
+        border: 3px outset rgb(186, 255, 172);
+        border-radius: 10px;
+
+        width: 700px;
+        height: 320px;
+        
+        background-color: rgb(186, 255, 172);
+        
+
+        position: relative;
+    }
+    #profilecenter{
+        
+        display: flex;
+        justify-content: center;
+        
+    }
+    .profile li {
+        font-size: larger;
+    }
+
+    .btns {
+        text-align: center;
+        padding: 0;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .btns button {
+        margin: 0 10px 0 10px;
+    }
+    .closebtn{
+        text-align: right;
+        margin-right: 20%;
+        padding: 20px;
+    }
+</style>
+
+<body>
+    <div class="title">
+        <h1>GOAT</h1>
+    </div>
+
+    <div id="moreinfo">
+        <div class="image">
+            <img class="zepimage" src="zepchar.jpg">
+        </div>
+
+        <div class="info-detail">
+            <div class="shorts">
+                <h1> 천재훈</h1>
+                <p>안녕하세요 GOAT조 에서 상세정보 제작을 담당한 천재훈입니다.</p>
+            </div>
+            <div class="btns">
+                <button class="btn btn-dark" type="button">Github</button>
+                <button type="button" class="btn btn-outline-secondary">blog</button>
+            </div>
+        </div>
+
+    </div>
+    <div id="profilecenter">
+        <div class="profile">
+            <h1 style="margin-top: 0;">Profile</h1>
+            <li>나이</li>
+            <li>취미</li>
+            <li>MBTI</li>
+            <li>나의 장점</li>
+            <li>캠프에 합류한 계기</li>
+            <li>TMI</li>
+        </div>
+        
+    </div>
+    <div class="closebtn">
+        <button type="button" class="btn btn-outline-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-arrows-angle-contract" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M.172 15.828a.5.5 0 0 0 .707 0l4.096-4.096V14.5a.5.5 0 1 0 1 0v-3.975a.5.5 0 0 0-.5-.5H1.5a.5.5 0 0 0 0 1h2.768L.172 15.121a.5.5 0 0 0 0 .707M15.828.172a.5.5 0 0 0-.707 0l-4.096 4.096V1.5a.5.5 0 1 0-1 0v3.975a.5.5 0 0 0 .5.5H14.5a.5.5 0 0 0 0-1h-2.768L15.828.879a.5.5 0 0 0 0-.707">
+                </path>
+            </svg>
+            <span class="visually-hidden">Button</span>
+        </button>
+        <p>닫기</p>
+    </div>
+</body>
+
+</html>
