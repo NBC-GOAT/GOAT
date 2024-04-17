@@ -45,10 +45,24 @@
       const storage = getStorage(app);
 
       let docs = await getDocs(collection(db, 'information'));
-      $('#card').empty();
       docs.forEach((doc) => {
         let row = doc.data();
         console.log(row);
+
+        let imageurl = row.imageUrl;
+        let name = row.name;
+
+        let temp_html = `
+        <div class="col">
+          <div class="card">
+            <img src="${imageurl}"
+              class="card-img-top" alt="..."/>
+            <div class="card-body">
+              <p class="card-text"><b>${name}</b></p>
+            </div>
+          </div>
+        </div>`;
+        $('#cards').append(temp_html);
       });
     </script>
     <style>
@@ -88,79 +102,8 @@
   <body>
     <h1 class="display-5 fw-bold">GOAT</h1>
     <div class="mycards">
-      <div class="row row-cols-1 row-cols-md-3 g-4">
-        <div class="col">
-          <div class="card">
-            <img
-              src="https://ifh.cc/g/ljJ1qQ.png"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <p class="card-text"><b>김은직</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <img
-              src="https://ifh.cc/g/xtFBYs.png"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <p class="card-text"><b>김태현</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <img
-              src="https://ifh.cc/g/r0LJFY.png"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <p class="card-text"><b>김헌선</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <img
-              src="https://ifh.cc/g/jzr8cF.png"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <p class="card-text"><b>민광규</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <img
-              src="https://ifh.cc/g/d4j7rO.png"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <p class="card-text"><b>손태권</b></p>
-            </div>
-          </div>
-        </div>
-        <div class="col">
-          <div class="card">
-            <img
-              src="https://ifh.cc/g/DWdGAD.png"
-              class="card-img-top"
-              alt="..."
-            />
-            <div class="card-body">
-              <p class="card-text"><b>천재훈</b></p>
-            </div>
-          </div>
-        </div>
+      <div class="row row-cols-1 row-cols-md-3 g-4" id="cards"> 
+
       </div>
     </div>
   </body>
