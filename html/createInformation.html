@@ -138,6 +138,8 @@
             await addDoc(collection(db, 'information'), uploadDto).then(
               (res) => {
                 alert('저장 되었습니다.');
+                $();
+                $('#createModal').modal('hide');
               }
             );
           })
@@ -151,6 +153,7 @@
     <style>
       #content {
         height: 300px;
+        resize: none;
       }
     </style>
   </head>
@@ -159,21 +162,21 @@
       type="button"
       class="btn btn-primary"
       data-bs-toggle="modal"
-      data-bs-target="#exampleModal"
+      data-bs-target="#createModal"
     >
       합류하기
     </button>
     <div
       class="modal fade"
-      id="exampleModal"
+      id="createModal"
       tabindex="-1"
-      aria-labelledby="exampleModalLabel"
+      aria-labelledby="createModalLabel"
       aria-hidden="true"
     >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h1 class="modal-title fs-5" id="exampleModalLabel">G O A T</h1>
+            <h1 class="modal-title fs-5" id="createModalLabel">G O A T</h1>
             <button
               type="button"
               class="btn-close"
@@ -233,13 +236,14 @@
                   <label for="floatingInput">깃허브</label>
                 </div>
                 <div class="form-floating mb-3">
-                  <input
+                  <textarea
                     id="content"
                     type="textarea"
                     class="form-control"
                     id="floatingInput"
                     placeholder="강점!"
-                  />
+                    resize="none"
+                  ></textarea>
                   <label for="floatingInput">강점</label>
                 </div>
               </div>
