@@ -231,10 +231,10 @@
           content: '',
           password: '',
         };
-        // if (comparePassword === $('#password1').val()) {
-        //   alert('비밀번호가 다릅니다.');
-        //   window.location.reload();
-        // }
+        if (comparePassword === $('#password1').val()) {
+          alert('비밀번호가 다릅니다.');
+          window.location.reload();
+        }
         console.log($('#mbti1').val());
         editDto.mbti = $('#mbti1').val();
         editDto.name = $('#name1').val();
