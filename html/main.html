@@ -87,7 +87,6 @@
                                 <div class="min-profile">
                                     <img src="${editData.imageUrl}"  alt="..." width="100px" height="100px">
                                     <div class="min-contents">
-                                      <button id="editbtn" data-bs-toggle="modal" data-bs-target="#editModal" value = ${editData.id}>수정하기</button>
                                         <h5>이름 : ${editData.name}</h5>
                                         <p>#MBTI : ${editData.mbti}</p>
 
@@ -106,7 +105,7 @@
                                   ${editData.content}
                                 </div>
                                 <div class="cardopenclose" >
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                                <button id="editbtn" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" value = ${editData.id}>
                                  수정하기
                                   </button>
                                  <button type="button" class="btn btn-primary" id="send">
