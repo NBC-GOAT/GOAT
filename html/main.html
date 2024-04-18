@@ -1,70 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GOAT</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script type="module">
+      // Firebase SDK 라이브러리 가져오기
+      import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+      import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+      import {
+        getStorage,
+        ref,
+        uploadBytes,
+        getDownloadURL,
+      } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js';
+      import {
+        collection,
+        addDoc,
+        updateDoc,
+        deleteDoc,
+        doc,
+      } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+      import { getDocs } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>GOAT</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-    crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-  <script type="module">
-    // Firebase SDK 라이브러리 가져오기
-    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-    import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
-    import {
-      getStorage,
-      ref,
-      uploadBytes,
-      getDownloadURL,
-    } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-storage.js';
-    import {
-      collection,
-      addDoc,
-      updateDoc,
-      doc,
-    } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
-    import { getDocs } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
-
-    // Firebase 구성 정보 설정
-    // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-    const firebaseConfig = {
-      apiKey: 'AIzaSyAqjb8uXk3rN-Ao6-zzC7fbeW6zuCo3vaU',
-      authDomain: 'sparta-1a0bd.firebaseapp.com',
-      projectId: 'sparta-1a0bd',
-      storageBucket: 'sparta-1a0bd.appspot.com',
-      messagingSenderId: '117739619217',
-      appId: '1:117739619217:web:13a6198d44aad16def5030',
-      measurementId: 'G-239WZM18HP',
-    };
-
-    // Firebase 인스턴스 초기화
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    const storage = getStorage(app);
-
-
-    let userid;
-    var teamlist = [];
-
-    let docs = await getDocs(collection(db, 'information'));
-    docs.forEach((doc) => {
-      let id;
-      let row = doc.data();
-      let editData = {
-        id: doc.id,
-        imageUrl: row['imageUrl'],
-        mbti: row['mbti'],
-        name: row['name'],
-        blog: row['blog'],
-        github: row['github'],
-        content: row['content'],
-        password: row['password'],
+      // Firebase 구성 정보 설정
+      // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+      const firebaseConfig = {
+        apiKey: 'AIzaSyAqjb8uXk3rN-Ao6-zzC7fbeW6zuCo3vaU',
+        authDomain: 'sparta-1a0bd.firebaseapp.com',
+        projectId: 'sparta-1a0bd',
+        storageBucket: 'sparta-1a0bd.appspot.com',
+        messagingSenderId: '117739619217',
+        appId: '1:117739619217:web:13a6198d44aad16def5030',
+        measurementId: 'G-239WZM18HP',
       };
-      let temp_html = `
+
+      // Firebase 인스턴스 초기화
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+      const storage = getStorage(app);
+
+      let userid;
+      var teamlist = [];
+
+      let docs = await getDocs(collection(db, 'information'));
+      docs.forEach((doc) => {
+        let id;
+        let row = doc.data();
+        let editData = {
+          id: doc.id,
+          imageUrl: row['imageUrl'],
+          mbti: row['mbti'],
+          name: row['name'],
+          blog: row['blog'],
+          github: row['github'],
+          content: row['content'],
+          password: row['password'],
+        };
+        let temp_html = `
         <div class="flip">
                 <div class="flipcard">
                     <!-- 앞면 -->
@@ -108,8 +113,7 @@
                                 <button id="editbtn" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" value = ${editData.id}>
                                  수정하기
                                   </button>
-                                  <p> </p>
-                                 <button class="deletebtn" type="button" class="btn btn-primary" id="send" >
+                                 <button  type="button" class="btn btn-primary" value = ${editData.id} id="deleteBtn" data-bs-toggle="modal" data-bs-target="#deleteModal" >
                                   삭제하기
                                   </button>
                                   </div>
@@ -118,130 +122,36 @@
                     </div>
                 </div>
             </div>`;
-      $('#cards').append(temp_html);
-      teamlist.push(editData);
-    });
+        $('#cards').append(temp_html);
+        teamlist.push(editData);
+      });
+      //삭제기능
+      let delId;
+      $(document).on('click', '#deleteBtn', async function () {
+        delId = $(this).val();
+        console.log(delId);
+      });
 
-    //업로드시에 사용될 정보
-    let uploadDto = {
-      imageUrl: '',
-      mbti: '',
-      name: '',
-      blog: '',
-      github: '',
-      content: '',
-      password: '',
-    };
-
-    //이미지 파일 이름 생성
-    function guid() {
-      function s4() {
-        return Math.floor((1 + Math.random()) * 0x10000)
-          .toString(16)
-          .substring(1);
-      }
-      return (
-        s4() +
-        s4() +
-        '-' +
-        s4() +
-        '-' +
-        s4() +
-        '-' +
-        s4() +
-        '-' +
-        s4() +
-        s4() +
-        s4()
-      );
-    }
-
-    //이미지 미리보기
-    $('#imageInput').change(function () {
-      $('#preview').remove();
-      $('#image-body').append(
-        `<img id="preview" class="img-thumbnail" width="330px" />`
-      );
-
-      const file = document.querySelector('#imageInput').files[0];
-      if (file) {
-        var reader = new FileReader();
-        reader.onload = function (e) {
-          document.getElementById('preview').src = e.target.result;
-        };
-        reader.readAsDataURL(file);
-      } else {
-        document.getElementById('preview').src = '';
-      }
-      $('#preview').attr('display');
-    });
-
-    // 정보 업로드
-    $('#send').click(async function () {
-      uploadDto.mbti = $('#mbti').val();
-      uploadDto.name = $('#name').val();
-      uploadDto.blog = $('#blog').val();
-      uploadDto.github = $('#github').val();
-      uploadDto.content = $('#content').val();
-      uploadDto.password = $('#password').val();
-
-      if (
-        !uploadDto.mbti ||
-        !uploadDto.name ||
-        !uploadDto.blog ||
-        !uploadDto.github ||
-        !uploadDto.content ||
-        !uploadDto.password
-      ) {
-        alert('모든칸을 작성해 주세요!');
-        return;
-      }
-      const file = document.querySelector('#imageInput').files[0];
-      if (!file) {
-        alert('이미지를 등록해주세요');
-        return;
-      }
-
-      let uuid = guid();
-      const imageRef = ref(storage, `images/${uuid}`);
-
-      const data = await uploadBytes(imageRef, file)
-        .then(async (res) => {
-          await getDownloadURL(res.ref).then((url) => {
-            uploadDto.imageUrl = url;
+      $('#delBtn').click(async function () {
+        let comparePassword = $('#password3').val();
+        let data = teamlist.filter((el) => el.id === delId);
+        if (data[0].password !== comparePassword) {
+          alert('비밀번호가 다릅니다.');
+          return;
+        }
+        await deleteDoc(doc(db, `information/${delId}`))
+          .then((res) => {
+            alert('삭제 되었습니다.');
+            window.location.reload();
+          })
+          .catch((err) => {
+            console.log(err);
+            alert('저장에 실패했습니다!');
           });
-          await addDoc(collection(db, 'information'), uploadDto).then(
-            (res) => {
-              alert('저장 되었습니다.');
-              window.location.reload();
-            }
-          );
-        })
+      });
 
-        .catch((err) => {
-          console.log(err);
-          alert('저장에 실패했습니다!');
-        });
-    });
-
-    let editId;
-    $(document).on('click', '#editbtn', function () {
-      editId = $(this).val(); // 아이디를 찾음!
-      userid = editId;
-      let data = teamlist.filter((el) => el.id === editId);
-
-      //document.getElementById("name1").value = teamlist[this.value].name;// input값 변경
-      $('#imageinput1').val(data[0].imageUrl);
-      $('#name1').val(data[0].name);
-      $('#mbti1').val(data[0].mbti);
-      $('#blog1').val(data[0].blog);
-      $('#github1').val(data[0].github);
-      $('#content1').val(data[0].content);
-    })
-
-    // 정보 업로드
-    $('#edit').click(async function () {
-      let editDto = {
+      //업로드시에 사용될 정보
+      let uploadDto = {
         imageUrl: '',
         mbti: '',
         name: '',
@@ -251,337 +161,614 @@
         password: '',
       };
 
-      editDto.mbti = $('#mbti1').val();
-      editDto.name = $('#name1').val();
-      editDto.blog = $('#blog1').val();
-      editDto.github = $('#github1').val();
-      editDto.content = $('#content1').val();
-      editDto.password = $('#password1').val();
-      let ckdata = teamlist.filter((el) => el.id === userid);
+      //이미지 파일 이름 생성
+      function guid() {
+        function s4() {
+          return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+        }
+        return (
+          s4() +
+          s4() +
+          '-' +
+          s4() +
+          '-' +
+          s4() +
+          '-' +
+          s4() +
+          '-' +
+          s4() +
+          s4() +
+          s4()
+        );
+      }
 
-      if (
-        !editDto.mbti ||
-        !editDto.name ||
-        !editDto.blog ||
-        !editDto.github ||
-        !editDto.content
-      ) {
-        alert('모든칸을 작성해 주세요!');
-        return;
-      }
-      const file = document.querySelector('#imageInput1').files[0];
-      if (!file) {
-        alert('이미지를 등록해주세요');
-        return;
-      }
-      if (ckdata[0].password != editDto.password) {
-        alert('비밀번호가 맞지 않습니다!');
-        return;
-      }
-      let uuid = guid();
-      const imageRef = ref(storage, `images/${uuid}`);
+      //이미지 미리보기
+      $('#imageInput').change(function () {
+        $('#preview').remove();
+        $('#image-body').append(
+          `<img id="preview" class="img-thumbnail" width="330px" />`
+        );
 
-      const data = await uploadBytes(imageRef, file)
-        .then(async (res) => {
-          await getDownloadURL(res.ref).then((url) => {
-            editDto.imageUrl = url;
+        const file = document.querySelector('#imageInput').files[0];
+        if (file) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            document.getElementById('preview').src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        } else {
+          document.getElementById('preview').src = '';
+        }
+        $('#preview').attr('display');
+      });
+
+      // 정보 업로드
+      $('#send').click(async function () {
+        uploadDto.mbti = $('#mbti').val();
+        uploadDto.name = $('#name').val();
+        uploadDto.blog = $('#blog').val();
+        uploadDto.github = $('#github').val();
+        uploadDto.content = $('#content').val();
+        uploadDto.password = $('#password').val();
+
+        if (
+          !uploadDto.mbti ||
+          !uploadDto.name ||
+          !uploadDto.blog ||
+          !uploadDto.github ||
+          !uploadDto.content ||
+          !uploadDto.password
+        ) {
+          alert('모든칸을 작성해 주세요!');
+          return;
+        }
+        const file = document.querySelector('#imageInput').files[0];
+        if (!file) {
+          alert('이미지를 등록해주세요');
+          return;
+        }
+
+        let uuid = guid();
+        const imageRef = ref(storage, `images/${uuid}`);
+
+        const data = await uploadBytes(imageRef, file)
+          .then(async (res) => {
+            await getDownloadURL(res.ref).then((url) => {
+              uploadDto.imageUrl = url;
+            });
+            await addDoc(collection(db, 'information'), uploadDto).then(
+              (res) => {
+                alert('저장 되었습니다.');
+                window.location.reload();
+              }
+            );
+          })
+
+          .catch((err) => {
+            console.log(err);
+            alert('저장에 실패했습니다!');
           });
-          await updateDoc(doc(db, `information/${editId}`), editDto).then(
-            (res) => {
-              alert('저장에 성공했습니다!');
-              window.location.reload();
-            }
-          );
-        })
-        .catch((err) => {
-          console.log(err);
-          alert('저장에 실패했습니다!');
-        });
-    });
-  </script>
-  <style>
-    .deletebtn{
-      margin-left: 10px;
-    }
-    .cardopenclose{
-      display: flex;
-      justify-content: end;
-      align-items: right;
-      margin: 10px;
-    }
+      });
 
-    @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Permanent+Marker&display=swap');
+      let editId;
+      $(document).on('click', '#editbtn', function () {
+        editId = $(this).val(); // 아이디를 찾음!
+        userid = editId;
+        let data = teamlist.filter((el) => el.id === editId);
 
-    body {
-      background-image: url('https://ifh.cc/g/M6TYlT.jpg');
-      background-size: cover;
-      background-repeat: no-repeat;
-    }
+        //document.getElementById("name1").value = teamlist[this.value].name;// input값 변경
+        $('#imageinput1').val(data[0].imageUrl);
+        $('#name1').val(data[0].name);
+        $('#mbti1').val(data[0].mbti);
+        $('#blog1').val(data[0].blog);
+        $('#github1').val(data[0].github);
+        $('#content1').val(data[0].content);
+      });
 
-    #content {
-      height: 300px;
-      resize: none;
-    }
+      // 정보 업로드
+      $('#edit').click(async function () {
+        let editDto = {
+          imageUrl: '',
+          mbti: '',
+          name: '',
+          blog: '',
+          github: '',
+          content: '',
+          password: '',
+        };
 
-    .display-5 {
-      padding: 20px;
-      color: black;
-      letter-spacing: 60px;
-      font-family: 'Abril Fatface', serif;
-      font-weight: 400;
-      font-style: normal;
-    }
+        editDto.mbti = $('#mbti1').val();
+        editDto.name = $('#name1').val();
+        editDto.blog = $('#blog1').val();
+        editDto.github = $('#github1').val();
+        editDto.content = $('#content1').val();
+        editDto.password = $('#password1').val();
+        let ckdata = teamlist.filter((el) => el.id === userid);
 
+        if (
+          !editDto.mbti ||
+          !editDto.name ||
+          !editDto.blog ||
+          !editDto.github ||
+          !editDto.content
+        ) {
+          alert('모든칸을 작성해 주세요!');
+          return;
+        }
+        const file = document.querySelector('#imageInput1').files[0];
+        if (!file) {
+          alert('이미지를 등록해주세요');
+          return;
+        }
+        if (ckdata[0].password != editDto.password) {
+          alert('비밀번호가 맞지 않습니다!');
+          return;
+        }
+        let uuid = guid();
+        const imageRef = ref(storage, `images/${uuid}`);
 
-    .card-group {
-      width: 1250px;
-      margin: 20px auto 20px auto;
-    }
+        const data = await uploadBytes(imageRef, file)
+          .then(async (res) => {
+            await getDownloadURL(res.ref).then((url) => {
+              editDto.imageUrl = url;
+            });
+            await updateDoc(doc(db, `information/${editId}`), editDto).then(
+              (res) => {
+                alert('저장에 성공했습니다!');
+                window.location.reload();
+              }
+            );
+          })
+          .catch((err) => {
+            console.log(err);
+            alert('저장에 실패했습니다!');
+          });
+      });
+    </script>
+    <style>
+      .deletebtn {
+        margin-left: 10px;
+      }
+      .cardopenclose {
+        display: flex;
+        justify-content: end;
+        align-items: right;
+        margin: 10px;
+      }
 
-    .card {
-      object-fit: cover;
-      background-color: transparent;
-      border: 1px solid transparent;
-    }
+      @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Permanent+Marker&display=swap');
 
-    .card-text {
-      text-align: center;
-      letter-spacing: 10px;
-      font-size: x-large;
-    }
+      body {
+        background-image: url('https://ifh.cc/g/M6TYlT.jpg');
+        background-size: cover;
+        background-repeat: no-repeat;
+      }
 
-    .head {
-      margin-left: 140px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
+      #content {
+        height: 300px;
+        resize: none;
+      }
 
-    .btnBox {
-      margin-right: 30px;
-    }
+      .display-5 {
+        padding: 20px;
+        color: black;
+        letter-spacing: 60px;
+        font-family: 'Abril Fatface', serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+      #editbtn {
+        margin-right: 10px;
+      }
+      .card-group {
+        width: 1250px;
+        margin: 20px auto 20px auto;
+      }
 
-    .flip {
-      margin: 30px;
-      width: 350px;
-      height: 600px;
-      perspective: 1100px;
-    }
+      .card {
+        object-fit: cover;
+        background-color: transparent;
+        border: 1px solid transparent;
+      }
 
-    #flip-comment {
-      height: 250px;
-      width: 325px;
-      overflow: hidden;
-      font-size: 14px;
-      font-weight: bolder !important;
-    }
+      .card-text {
+        text-align: center;
+        letter-spacing: 10px;
+        font-size: x-large;
+      }
 
-    .flipcard {
-      width: 100%;
-      height: 100%;
-      position: relative;
-      transition: 0.4s;
-      transform-style: preserve-3d;
-    }
+      .head {
+        margin-left: 140px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-    .front,
-    .back {
-      align-items: center;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      backface-visibility: hidden;
-    }
+      .btnBox {
+        margin-right: 30px;
+      }
 
-    /* .front, .back{
+      .flip {
+        margin: 30px;
+        width: 350px;
+        height: 600px;
+        perspective: 1100px;
+      }
+
+      #flip-comment {
+        height: 250px;
+        width: 325px;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: bolder !important;
+      }
+
+      .flipcard {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transition: 0.4s;
+        transform-style: preserve-3d;
+      }
+
+      .front,
+      .back {
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+      }
+
+      /* .front, .back{
       width: 100%;
       margin: 10px auto;
       position: relative;
       backface-visibility: hidden;
     }  */
 
-    .card-text{
-      position: absolute;
-      top: 75%;
-      left: 53%;
-      width: 100%;
-      transform: translate(-50%, -50%);
-    } 
-    .back {
-      transform: rotateY(180deg);
-    }
+      .card-text {
+        position: absolute;
+        top: 75%;
+        left: 53%;
+        width: 100%;
+        transform: translate(-50%, -50%);
+      }
+      .back {
+        transform: rotateY(180deg);
+      }
 
-    .flip:hover .flipcard {
-      transform: rotateY(180deg);
-    }
+      .flip:hover .flipcard {
+        transform: rotateY(180deg);
+      }
 
-    .profilecard {
-      /* 일단 흰색으로 해놓았습니다. */
-      /* background-color: rgb(177, 243, 255);
+      .profilecard {
+        /* 일단 흰색으로 해놓았습니다. */
+        /* background-color: rgb(177, 243, 255);
         border: 4px outset rgb(131, 247, 255); */
-      background-color: white;
-      border-radius: 5px;
-      height: 83%;
-    }
+        background-color: white;
+        border-radius: 5px;
+        height: 83%;
+      }
 
-    .btn-col {
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      margin: 10px;
-      padding-right: 20px;
-    }
+      .btn-col {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+        padding-right: 20px;
+      }
 
-    .btn-col button {
-      width: 100px;
-      margin: 10px;
-    }
+      .btn-col button {
+        width: 100px;
+        margin: 10px;
+      }
 
-    .min-profile {
-      text-align: center;
-      padding: 5px;
-      display: grid;
-      grid-template-columns: 105px 1fr;
-    }
+      .min-profile {
+        text-align: center;
+        padding: 5px;
+        display: grid;
+        grid-template-columns: 105px 1fr;
+      }
 
-    #comment {
-      padding: 0;
-      height: 170px;
-    }
+      #comment {
+        padding: 0;
+        height: 170px;
+      }
 
-    .seemore {
-      margin-top: 5px;
-      margin-bottom: 5px;
-      text-align: right;
-      padding-right: 20px;
-    }
-  </style>
-</head>
+      .seemore {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-align: right;
+        padding-right: 20px;
+      }
+    </style>
+  </head>
 
-<body>
-  <div class="head">
-    <div></div>
-    <h1 class="display-5 fw-bold">GOAT</h1>
-    <div class="btnBox">
-      <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#createModal">
-        합류하기
-      </button>
+  <body>
+    <div class="head">
+      <div></div>
+      <h1 class="display-5 fw-bold">GOAT</h1>
+      <div class="btnBox">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-bs-toggle="modal"
+          data-bs-target="#createModal"
+        >
+          합류하기
+        </button>
+      </div>
     </div>
-  </div>
-
-  <hr width="100%" color="white" />
-  <div class="modal fade" id="createModal" tabindex="-1" aria-labelledby="createModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="createModalLabel">G O A T</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mt-3 p-3">
-            <div class="mypostingbox" id="postingbox">
-              <div class="input-group mb-2" id="imagebox">
-                <input type="file" class="form-control mb-3" id="imageInput" />
-              </div>
-              <div id="image-body"></div>
-              <div class="form-floating mb-3">
-                <input id="name" type="text" class="form-control" id="floatingInput" placeholder="이름" />
-                <label for="floatingInput">이름</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input id="mbti" type="text" class="form-control" id="floatingInput" placeholder="ISTP" />
-                <label for="floatingInput">MBTI</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input id="blog" type="text" class="form-control" id="floatingInput" placeholder="example.com" />
-                <label for="floatingInput">블로그</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input id="github" type="text" class="form-control" id="floatingInput" placeholder="github.com/ka" />
-                <label for="floatingInput">깃허브</label>
-              </div>
-              <div class="form-floating mb-3">
-                <textarea id="content" type="textarea" class="form-control" id="floatingInput" placeholder="강점!"
-                  resize="none"></textarea>
-                <label for="floatingInput">강점</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input id="password" type="password" class="form-control" id="floatingInput" placeholder="password!@" />
-
-                <label for="floatingInput">비밀번호</label>
-              </div>
+    <div
+      class="modal fade"
+      id="deleteModal"
+      tabindex="-1"
+      aria-labelledby="deleteModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="deleteModalLabel">삭제하기</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="form-floating mb-3">
+              <input
+                id="password3"
+                type="password"
+                class="form-control"
+                id="floatingInput"
+                placeholder="비밀번호"
+              />
+              <label for="floatingInput">비밀번호</label>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            닫기
-          </button>
-          <button type="button" class="btn btn-primary" id="send">
-            등록하기
-          </button>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+            <button id="delBtn" type="button" class="btn btn-primary">
+              삭제
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
+    <hr width="100%" color="white" />
+    <div
+      class="modal fade"
+      id="createModal"
+      tabindex="-1"
+      aria-labelledby="createModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="createModalLabel">G O A T</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mt-3 p-3">
+              <div class="mypostingbox" id="postingbox">
+                <div class="input-group mb-2" id="imagebox">
+                  <input
+                    type="file"
+                    class="form-control mb-3"
+                    id="imageInput"
+                  />
+                </div>
+                <div id="image-body"></div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="name"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="이름"
+                  />
+                  <label for="floatingInput">이름</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="mbti"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="ISTP"
+                  />
+                  <label for="floatingInput">MBTI</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="blog"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="example.com"
+                  />
+                  <label for="floatingInput">블로그</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="github"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="github.com/ka"
+                  />
+                  <label for="floatingInput">깃허브</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <textarea
+                    id="content"
+                    type="textarea"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="강점!"
+                    resize="none"
+                  ></textarea>
+                  <label for="floatingInput">강점</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="password"
+                    type="password"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="password!@"
+                  />
 
-  <div class="modal fade" id="editModal" tabindex="-1" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="editModalLabel">G O A T</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mt-3 p-3">
-            <div class="mypostingbox" id="postingbox">
-              <div class="input-group mb-2" id="imagebox">
-                <input type="file" class="form-control mb-3" id="imageInput1" />
-              </div>
-              <div id="image-body"></div>
-              <div class="form-floating mb-3">
-                <input id="name1" type="text" class="form-control" id="floatingInput" placeholder="이름" value="name" />
-                <label for="floatingInput">이름</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input id="mbti1" type="text" class="form-control" id="floatingInput" placeholder="ISTP" />
-                <label for="floatingInput">MBTI</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input id="blog1" type="text" class="form-control" id="floatingInput" placeholder="example.com" />
-                <label for="floatingInput">블로그</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input id="github1" type="text" class="form-control" id="floatingInput" placeholder="github.com/ka" />
-                <label for="floatingInput">깃허브</label>
-              </div>
-              <div class="form-floating mb-3">
-                <textarea id="content1" type="textarea" class="form-control" id="floatingInput" placeholder="강점!"
-                  resize="none"></textarea>
-                <label for="floatingInput">강점</label>
-              </div>
-              <div class="form-floating mb-3">
-                <input id="password1" type="password" class="form-control" id="floatingInput"
-                  placeholder="password!@" />
-                <label for="floatingInput">비밀번호</label>
+                  <label for="floatingInput">비밀번호</label>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
-            닫기
-          </button>
-          <button type="button" class="btn btn-primary" id="edit">
-            수정하기
-          </button>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+            <button type="button" class="btn btn-primary" id="send">
+              등록하기
+            </button>
+          </div>
         </div>
       </div>
     </div>
-  </div>
-  <div class="card-group">
-    <div class="row row-cols-1 row-cols-md-3 g-4" id="cards"></div>
-  </div>
-</body>
 
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="editModalLabel">G O A T</h1>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="mt-3 p-3">
+              <div class="mypostingbox" id="postingbox">
+                <div class="input-group mb-2" id="imagebox">
+                  <input
+                    type="file"
+                    class="form-control mb-3"
+                    id="imageInput1"
+                  />
+                </div>
+                <div id="image-body"></div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="name1"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="이름"
+                    value="name"
+                  />
+                  <label for="floatingInput">이름</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="mbti1"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="ISTP"
+                  />
+                  <label for="floatingInput">MBTI</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="blog1"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="example.com"
+                  />
+                  <label for="floatingInput">블로그</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="github1"
+                    type="text"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="github.com/ka"
+                  />
+                  <label for="floatingInput">깃허브</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <textarea
+                    id="content1"
+                    type="textarea"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="강점!"
+                    resize="none"
+                  ></textarea>
+                  <label for="floatingInput">강점</label>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    id="password1"
+                    type="password"
+                    class="form-control"
+                    id="floatingInput"
+                    placeholder="password!@"
+                  />
+                  <label for="floatingInput">비밀번호</label>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              닫기
+            </button>
+            <button type="button" class="btn btn-primary" id="edit">
+              수정하기
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card-group">
+      <div class="row row-cols-1 row-cols-md-3 g-4" id="cards"></div>
+    </div>
+  </body>
 </html>
