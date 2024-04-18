@@ -56,7 +56,10 @@
         let imageurl = row.imageUrl;
         let name = row.name;
         let mbti = row.mbti;
-        
+        let content = row.content;
+        let github = row.github;
+        let blog = row.blog;
+
         let temp_html = `
         <div class="flip">
                 <div class="flipcard">
@@ -75,28 +78,30 @@
                     <!-- 뒷면 -->
                     <div class="back">
                         <div class="profilecard">
-                            <div class="card h-100">
+                            <div class="card">
                                 <div class="min-profile">
-                                    <img src="${imageurl}" class="card-img-top" alt="..." width="100px" height="100px">
-
+                                    <img src="${imageurl}"  alt="..." width="100px" height="100px">
                                     <div class="min-contents">
                                         <h5>이름 : ${name}</h5>
                                         <p>#MBTI : ${mbti}</p>
-                                
+
                                     </div>
                                 </div>
 
                                 <div class="btn-col">
-                                    <button class="btn btn-dark" type="button">Github</button>
+                                  <a href="${github}" > <button class="btn btn-dark" type="button">Github</button>
+                                     </a>
+                                   <a href="${blog}">
                                     <button type="button" class="btn btn-outline-secondary">blog</button>
+                                    </a>
                                 </div>
 
-                                <div class="card-footer" id = "comment">
-                                    <small class="text-body-secondary">Hello </small>
+                                <div class="card-footer" id = "flip-comment">
+                                   ${content}
                                 </div>
 
                                 <div class="seemore">
-                                    
+
                                     <button type="button" class="btn btn-outline-secondary" onclick ="openDetailsPopup('moreinfo.html', event)">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                     class="bi bi-arrows-angle-expand" viewBox="0 0 16 16">
@@ -106,7 +111,7 @@
                                     </svg>
                                     <span class="visually-hidden">Button</span>
                                     </button>
-                                    
+
                                 </div>
                             </div>
                         </div>
@@ -245,7 +250,6 @@
       }
 
       .card {
-        width: 335px;
         object-fit: cover;
         background-color: transparent;
         border: 1px solid transparent;
@@ -266,77 +270,83 @@
       }
 
       .flip {
-            margin: 30px;
-            width: 350px;
-            height: 600px;
-            perspective: 1100px;
-            
-        }
+        margin: 30px;
+        width: 350px;
+        height: 600px;
+        perspective: 1100px;
+      }
+      #flip-comment {
+        height: 250px;
+        width: 325px;
+        overflow: hidden;
+        font-size: 14px;
+        font-weight: bolder !important;
+      }
 
-        .flipcard {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            transition: .4s;
-            transform-style: preserve-3d;
-        }
+      .flipcard {
+        width: 100%;
+        height: 100%;
+        position: relative;
+        transition: 0.4s;
+        transform-style: preserve-3d;
+      }
 
-        .front,
-        .back {
-            align-items: center;
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-        }
-       
-        .back {
-            transform: rotateY(180deg);
-        }
+      .front,
+      .back {
+        align-items: center;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+      }
 
-        
-        .flip:hover .flipcard {
-            transform: rotateY(180deg);
-        }
+      .back {
+        transform: rotateY(180deg);
+      }
 
-        .profilecard {
+      .flip:hover .flipcard {
+        transform: rotateY(180deg);
+      }
 
-            height: 400px;
-            background-color: rgb(177, 243, 255);
+      .profilecard {
+        /* 일단 흰색으로 해놓았습니다. */
+        /* background-color: rgb(177, 243, 255);
+        border: 4px outset rgb(131, 247, 255); */
+        background-color: white;
+        border-radius: 5px;
+        height: 83%;
+      }
 
-            border: 4px outset rgb(131, 247, 255);
-            border-radius: 5px;
-        }
+      .btn-col {
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        margin: 10px;
+        padding-right: 20px;
+      }
 
-        .btn-col {
-            text-align: center;
+      .btn-col button {
+        width: 100px;
+        margin: 10px;
+      }
 
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            margin: 10px;
-            padding-right: 20px;
-        }
+      .min-profile {
+        text-align: center;
+        padding: 5px;
+        display: grid;
+        grid-template-columns: 105px 1fr;
+      }
+      #comment {
+        padding: 0;
+        height: 170px;
+      }
 
-        .btn-col button {
-            margin: 10px;
-        }
-
-
-        .min-profile {
-            text-align: center;
-            padding: 5px;
-
-            display: grid;
-            grid-template-columns: 105px 1fr;
-        }
-        #comment{
-            
-            height: 170px;
-        }
-        .seemore {
-            text-align: right;
-            padding-right: 20px;
-        }
+      .seemore {
+        margin-top: 5px;
+        margin-bottom: 5px;
+        text-align: right;
+        padding-right: 20px;
+      }
     </style>
   </head>
 
