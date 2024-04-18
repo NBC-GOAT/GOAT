@@ -309,6 +309,7 @@
       align-items: right;
       margin: 10px;
     }
+
     @import url('https://fonts.googleapis.com/css2?family=Abril+Fatface&family=Anton&family=Permanent+Marker&display=swap');
 
     body {
@@ -392,6 +393,20 @@
       backface-visibility: hidden;
     }
 
+    /* .front, .back{
+      width: 100%;
+      margin: 10px auto;
+      position: relative;
+      backface-visibility: hidden;
+    }  */
+
+    .card-text{
+      position: absolute;
+      top: 75%;
+      left: 53%;
+      width: 100%;
+      transform: translate(-50%, -50%);
+    } 
     .back {
       transform: rotateY(180deg);
     }
