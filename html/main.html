@@ -90,8 +90,8 @@
                             <div class="card">
                             
                                 <div class="min-profile">
-                                    <img src="${editData.imageUrl}"  alt="..." width="100px" height="100px">
-                                    <div class="min-contents">
+                                    <img src="${editData.imageUrl}"  alt="..." width="64px" height="96px" style="margin-top:30px;">
+                                    <div class="min-contents" style ="margin-top:55px;">
                                         <h5>이름 : ${editData.name}</h5>
                                         <p>#MBTI : ${editData.mbti}</p>
 
@@ -113,7 +113,7 @@
                                 <button id="editbtn" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#editModal" value = ${editData.id}>
                                  수정하기
                                   </button>
-                                 <button  type="button" class="btn btn-primary" value = ${editData.id} id="deleteBtn" data-bs-toggle="modal" data-bs-target="#deleteModal" >
+                                 <button  type="button" class="btn btn-secondary" value = ${editData.id} id="deleteBtn" data-bs-toggle="modal" data-bs-target="#deleteModal" >
                                   삭제하기
                                   </button>
                                   </div>
@@ -457,8 +457,6 @@
         text-align: center;
         display: flex;
         justify-content: center;
-        margin: 10px;
-        padding-right: 20px;
       }
 
       .btn-col button {
@@ -467,6 +465,7 @@
       }
 
       .min-profile {
+        background-color:green;
         text-align: center;
         padding: 5px;
         display: grid;
